@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Name</title>
+
+
+    <style>
+        #body{
+            background-color: blueviolet;
+        }
+        #title{
+            background-color: white;
+            width: 700px;
+            height: 700px;
+            margin-left: 400px;
+            margin-top: 100px;
+            text-align: center;
+            font-size: 50px;
+        }
+
+        #Guess{
+            width: 690px;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 50px; 
+            
+        }
+
+        #robot{
+            width: 700px;
+            margin-top: 30px;
+            text-align: center;
+            font-size: 50px;
+            
+        }
+
+        #box{
+            background-color: blueviolet;
+            width: 400px;
+            height: 100px;
+            margin-left: 150px;
+            margin-top: 50px;
+            border: 5px solid black;
+        }
+
+        #boxs{
+        
+        background-color: blueviolet;
+            width: 400px;
+            height: 100px;
+            margin-left: 74px;
+            margin-right: 60px;
+            margin-top: 50px;
+            border: 5px solid black;
+            text-align: center;
+            font-size: 50px;
+            color: black;
+            
+    }
+
+        #num{
+            margin-top: 20px;
+            margin-left: 180px;
+            position: absolute ;
+        }
+
+        #btn{
+            width: 200px;
+            height: 50px;
+            margin-top: 50px;
+            background-color: blueviolet;
+            border: 3px solid black;
+            font-size: 25px;
+        }
+
+        #score{
+            margin-left: 100px;
+            
+        }
+
+       
+        
+    </style>
+</head>
+<body id="body">
+    
+
+<div id="main">
+    <div id="title"> <b>Guess The Number Game</b>
+
+    <div id="Guess"> <b>Guess A Number</div>
+    <div id="robot">Start guessing...</div>
+
+    
+    <div id="box">
+        <div id="num"></div>
+    </div>
+
+    <input id="boxs" type="number" placeholder="Enter Number">
+
+    <button id="btn"> <b>Guess</button>
+
+
+        <p class="score"> 0 <span class="label-score">/5</span></p>
+        <p class="label-highscore"> HighScore: <span class="highscore">0</span></p>
+
+    </div>
+</div>
+
+<script>
+
+let secretNumber = Math.trunc(Math.random() * 10) +1;
+
+let score = 5;
+let highscore = 0;
+
+const displayMessage = function (message) {
+    document.getElementById('robot').textContent = message;
+};
+
+// document.querySelector('btn').addEventListener('click' )
+
+function checkguess (){
+    const guess = Number(document.getElementById('boxs').value);
+    console.log(guess, typeof guess);
+
+
+    if (!guess){
+
+        displayMessage('No Number');
+
+    }
+
+    else if(guess === secretNumber) {
+        displayMessage('Correct Number');
+        document.getElementById('num').textContent = secretNumber;
+
+        document.querySelector('#title').style.backgroundColor = '#60B347';
+        document.getElementById('robot').style.width = '30rem';
+
+
+        if (score > highscore) {
+            highscore = score;
+            document.querySelector('.highscore').textContent = highscore;
+
+        }
+
+
+    }
+
+    
+
+    else if (guess !== secretNumber){
+        if (score > 1) {
+            displayMessage(guess > secretNumber ? ' Too high!' : 'Too Low!');
+            score--;
+            document.querySelector('.score').textContent = score;
+        }
+        else{
+            displayMessage(' You lose HAHAHA!');
+            document.querySelector('.score').textContent = 0;
+            document.querySelector('#title').style.backgroundColor = '#D0312D';
+
+        }
+    }
+}
+
+var button = document.getElementById('btn').addEventListener('click', checkguess);
+
+</script>
+
+</body>
+</html>
